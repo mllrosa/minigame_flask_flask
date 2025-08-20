@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background: linear-gradient(to top, #4B0000, #7B2626);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #F0D9D9;
+}
+
+canvas {
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(123, 38, 38, 0.8);
+    background-color: #5C1E1E;
+}

@@ -1,0 +1,7 @@
+minigame
+    app.py
+    static/
+        game.js
+        style.css
+    templates
+        index.html
