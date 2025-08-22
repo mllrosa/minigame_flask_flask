@@ -3,5 +3,5 @@ minigame
     static/
         game.js
         style.css
-    templates
+    templates/
         index.html
