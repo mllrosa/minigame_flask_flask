@@ -34,7 +34,7 @@ document.addEventListener("keyup", e => {
     }
 });
 
-// Desenha jogador gatinho bordô
+// Desenha jogador gatinho bordô (igual ao seu código original)
 function drawPlayer() {
     const px = player.x;
     const py = player.y;
@@ -106,38 +106,46 @@ function drawPlayer() {
     ctx.stroke();
 }
 
-// Desenha obstáculo tipo ratinho mais claro
+// Desenha obstáculo tipo cacto bordô
 function drawObstacle(obs) {
-    // Corpo cinza claro com toque bordô
+    const px = obs.x;
+    const py = obs.y;
+    const w = obs.width;
+    const h = obs.height;
+
+    // Corpo do cacto (elipse vertical bordô)
     ctx.fillStyle = "#A85151";
     ctx.beginPath();
-    ctx.ellipse(obs.x + obs.width/2, obs.y + obs.height/2, obs.width/2, obs.height/2, 0, 0, 2 * Math.PI);
+    ctx.ellipse(px + w / 2, py + h / 2, w / 3, h / 2, 0, 0, 2 * Math.PI);
     ctx.fill();
 
-    // Orelhas vermelho claro
-    ctx.fillStyle = "#C67B7B";
-    ctx.beginPath();
-    ctx.moveTo(obs.x + obs.width * 0.3, obs.y + obs.height * 0.3);
-    ctx.lineTo(obs.x + obs.width * 0.4, obs.y + obs.height * 0.1);
-    ctx.lineTo(obs.x + obs.width * 0.5, obs.y + obs.height * 0.3);
-    ctx.closePath();
-    ctx.fill();
+    // Braços do cacto (linhas curvas vermelho claro)
+    ctx.strokeStyle = "#C67B7B";
+    ctx.lineWidth = 3;
 
+    // Braço esquerdo
     ctx.beginPath();
-    ctx.moveTo(obs.x + obs.width * 0.5, obs.y + obs.height * 0.3);
-    ctx.lineTo(obs.x + obs.width * 0.6, obs.y + obs.height * 0.1);
-    ctx.lineTo(obs.x + obs.width * 0.7, obs.y + obs.height * 0.3);
-    ctx.closePath();
-    ctx.fill();
+    ctx.moveTo(px + w / 3, py + h / 2);
+    ctx.bezierCurveTo(px + w / 6, py + h / 2 - 15, px + w / 6, py + h / 2 + 15, px + w / 3, py + h / 2 + 30);
+    ctx.stroke();
 
-    // Olhos pretos pequenos
-    ctx.fillStyle = "black";
+    // Braço direito
     ctx.beginPath();
-    ctx.ellipse(obs.x + obs.width * 0.4, obs.y + obs.height * 0.45, obs.width * 0.07, obs.height * 0.1, 0, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(obs.x + obs.width * 0.6, obs.y + obs.height * 0.45, obs.width * 0.07, obs.height * 0.1, 0, 0, 2 * Math.PI);
-    ctx.fill();
+    ctx.moveTo(px + 2 * w / 3, py + h / 2);
+    ctx.bezierCurveTo(px + 5 * w / 6, py + h / 2 - 15, px + 5 * w / 6, py + h / 2 + 15, px + 2 * w / 3, py + h / 2 + 30);
+    ctx.stroke();
+
+    // Espinhos (pequenas linhas brancas)
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1.5;
+    for(let i = 0; i < 4; i++) {
+        let x = px + w / 2;
+        let y = py + h / 5 + i * 12;
+        ctx.beginPath();
+        ctx.moveTo(x - 7, y);
+        ctx.lineTo(x + 7, y);
+        ctx.stroke();
+    }
 }
 
 function createObstacle() {
@@ -218,7 +226,7 @@ function draw() {
     // Jogador gatinho
     drawPlayer();
 
-    // Obstáculos ratinhos
+    // Obstáculos cactos
     obstacles.forEach(obs => {
         drawObstacle(obs);
     });
@@ -229,7 +237,7 @@ function draw() {
         ctx.textAlign = "center";
         ctx.fillText("Game Over!", canvas.width/2, canvas.height/2);
         ctx.font = "24px Comic Sans MS, cursive";
-        ctx.fillText("Pressione qualquer tecla para jogar novamente", canvas.width/2, canvas.height/2 + 40);
+        ctx.fillText("", canvas.width/2, canvas.height/2 + 40);
     }
 }
 
